@@ -1,170 +1,33 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brawl Meta - Best Brawl Stars Builds, Gadgets, Star Powers & Tier List</title>
-  <meta name="description" content="Find the best Brawl Stars builds for every brawler. Compare gadgets, star powers, gears and check the current tier list for the live meta." />
-  <meta name="keywords" content="brawl stars builds, brawl stars tier list, best gadget brawl stars, best star power brawl stars, best brawler build" />
-  <meta name="robots" content="index,follow,max-image-preview:large" />
-  <link rel="canonical" href="https://brawlmeta.vercel.app/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Brawl Meta - Best Builds & Tier List for Brawl Stars" />
-  <meta property="og:description" content="Best builds, gadgets, star powers and gears for every Brawl Stars brawler, plus a live tier list for the current meta." />
-  <meta property="og:url" content="https://brawlmeta.vercel.app/" />
-  <meta property="og:site_name" content="Brawl Meta" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Brawl Meta - Best Builds & Tier List for Brawl Stars" />
-  <meta name="twitter:description" content="Best builds, gadgets, star powers and gears for every Brawl Stars brawler." />
-  <meta name="theme-color" content="#0f1117" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="bg-orb orb-1"></div>
-  <div class="bg-orb orb-2"></div>
-  <div class="bg-grid"></div>
+<!DOCTYPE html><html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brawl Stars Best Builds 2026 - All Brawlers, Tier List & Win Rates</title>
+  <meta name="description" content="Brawl Meta brings the best Brawl Stars builds for every brawler, plus a separate tier list and Top 10 win rate page. Built to rank for best builds, brawl tier list and brawl stars tier list.">
+  <meta name="keywords" content="brawl stars best builds, best brawler build, brawl stars builds, brawl tier list, brawl stars tier list, top 10 win rate brawlers">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://brawlmeta.vercel.app/">
+  <meta property="og:title" content="Brawl Meta - Brawl Stars Best Builds, Tier List & Top 10 Win Rates (2026)">
+  <meta property="og:description" content="Brawl Meta brings the best Brawl Stars builds for every brawler, plus a separate tier list and Top 10 win rate page. Built to rank for best builds, brawl tier list and brawl stars tier list.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://brawlmeta.vercel.app/">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="assets/data.js"></script>
+  <script defer src="script.js"></script>
+</head><body data-page="home"><nav class="nav"><div class="container nav-inner"><a class="brand" href="index.html">Brawl <span>Meta</span></a><div class="links"><a href="index.html" data-i18n="navHome">Inicio</a><a href="#all" data-i18n="navBuilds">Best builds</a><a href="tier.html" data-i18n="navTier">Tier list</a><a href="top10.html" data-i18n="navTop10">Top 10</a><div class="lang-switch"><button data-lang-btn="es">ES</button><button data-lang-btn="en">EN</button></div></div></div></nav>
+<main>
+<section class="hero"><div class="container hero-grid"><div class="panel"><div class="eyebrow" data-i18n="heroEyebrow">WEB REAL · SEO + TIER LIST</div><h1 data-i18n="heroTitle">Brawl Meta</h1><p data-i18n="heroText">Consulta todos los brawlers y revisa al momento la mejor build de cada uno, con gadget, habilidad estelar y gears recomendados.</p><div class="actions"><a href="#all" class="btn primary" data-i18n="ctaBuilds">Ver best builds</a><a href="tier.html" class="btn" data-i18n="ctaTier">Ver tier list</a><a href="top10.html" class="btn" data-i18n="ctaTop10">Ver top 10</a></div></div><div class="stats"><div class="stat-card"><div class="label" data-i18n="liveMode">Modo</div><div class="value" data-i18n="liveApi">Live API</div></div><div class="stat-card"><div class="label" data-i18n="totalBrawlers">Brawlers</div><div id="stat-total" class="value">101</div></div><div class="stat-card"><div class="label" data-i18n="tierEyebrow">TIER LIST</div><div class="value">Brawl Tier List</div></div></div></div></section>
 
-  <header class="site-header">
-    <a class="brand" href="#home">Brawl Meta</a>
-    <nav>
-      <a href="#home" data-i18n="nav.home">Inicio</a>
-      <a href="#all" data-i18n="nav.all">Todos los brawlers</a>
-      <a href="tier.html" data-i18n="nav.tier">Tier list</a>
-      
-    </nav>
-    <div class="lang-switch" aria-label="Language switcher">
-      <button class="lang-btn active" data-lang="es">ES</button>
-      <button class="lang-btn" data-lang="en">EN</button>
-    </div>
-  </header>
+<section class="section" id="all"><div class="container"><div class="section-head"><div><div class="kicker" data-i18n="buildsEyebrow">BEST BUILDS</div><h2 data-i18n="buildsTitle">Best builds for every brawler</h2><p data-i18n="buildsText">Aquí aparecen todos los brawlers con su mejor build: gadget, habilidad estelar y gears recomendados. La tier list y el Top 10 están en páginas separadas.</p></div></div><div class="controls"><input id="search" class="input" data-i18n-ph="searchPlaceholder" placeholder="Ej: Spike, Trunk, Janet…"><select id="rarity"></select></div><div id="brawler-grid" class="build-list"></div></div></section>
+<section class="section"><div class="container panel"><div class="section-head"><div><div class="kicker" data-i18n="pagesEyebrow">PÁGINAS</div><h2 data-i18n="pagesTitle">Explora la tier list y el Top 10 de win rates</h2></div></div><p class="seo-copy">Usa la página de Tier List para ver los tiers S, A, B, C y D, y abre la página Top 10 para ver los porcentajes de win rate y pick rate.</p><div class="actions"><a href="tier.html" class="btn primary" data-i18n="ctaTier">Ver tier list</a><a href="top10.html" class="btn" data-i18n="ctaTop10">Ver top 10</a></div></div></section>
+</main>
+<footer class="footer"><div class="container copy"><div>© 2026 Brawl Meta</div><div data-i18n="footerCopy">Fan website. No afiliada a Supercell.</div></div></footer>
 
-  <main class="shell">
-    <section id="homeView" class="view active">
-      <section class="hero card">
-        <div>
-          <p class="eyebrow" data-i18n="hero.eyebrow">WEB REAL · DATOS DINÁMICOS</p>
-          <h1>Brawl Meta</h1>
-          <p class="hero-copy" data-i18n="hero.copy">Ahora la web carga los brawlers desde una API pública y, en cada ficha, muestra los <strong>2 gadgets</strong> y las <strong>2 habilidades estelares</strong> con su imagen real cuando la respuesta de la API la facilita.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#all" data-i18n="hero.ctaAll">Ver todos los brawlers</a>
-            <a class="button button-secondary" href="tier.html" data-i18n="hero.ctaAbout">Ver tier list</a>
-          </div>
-        </div>
-        <div class="hero-stats">
-          <div class="mini-card">
-            <span class="mini-label" data-i18n="stats.mode">Modo</span>
-            <strong>Live API</strong>
-          </div>
-          <div class="mini-card">
-            <span class="mini-label" data-i18n="stats.tier">Tier list</span>
-            <strong id="heroTierText">Top meta + S/A/B/C/D</strong>
-          </div>
-          <div class="mini-card">
-            <span class="mini-label" data-i18n="stats.updated">Actualizado</span>
-            <strong id="heroUpdatedText">Daily</strong>
-          </div>
-        </div>
-      </section>
+<section>
+<h2>Brawl Stars Best Builds, Tier List and Top 10 Win Rates</h2>
+<p>Brawl Meta is organised into three clear sections: the home page for best builds, a dedicated Brawl Stars tier list page, and a separate Top 10 win rate page with live percentages. This structure is stronger for users and better for SEO.</p>
+<p>If you are searching for best brawler builds, a Brawl tier list, best brawlers or highest win rate picks, this site gives you separate pages for each intent and keeps the experience much cleaner.</p>
+<p>Every brawler page is designed to target build-related searches, while the tier and win rate pages target broader meta searches.</p>
+<p>Keywords: brawl stars best builds, best brawler build, brawl stars tier list, brawl tier list, top 10 win rate brawlers.</p>
+</section>
 
-      
-      <section class="card seo-copy-card">
-        <h2 data-i18n="seo.title">Best Brawl Stars Builds</h2>
-        <p class="muted" data-i18n="seo.copy">Brawl Meta helps players find the best gadget, star power and gears for each brawler. Browse all brawlers, compare both gadgets and both star powers, and use the tier list to see which picks are strongest in the current meta.</p>
-      </section>
-
-      <section class="controls-row">
-        <div class="search-wrap card compact">
-          <label for="searchInput" data-i18n="controls.searchLabel">Buscar brawler</label>
-          <input id="searchInput" type="search" placeholder="Ej: Spike, Trunk, Janet..." />
-        </div>
-        <div class="search-wrap card compact">
-          <label for="raritySelect" data-i18n="controls.rarityLabel">Filtrar por rareza</label>
-          <select id="raritySelect">
-            <option value="all">Todas</option>
-          </select>
-        </div>
-      </section>
-
-      <section class="section-head">
-        <div>
-          <p class="eyebrow" data-i18n="sections.allEyebrow">TODOS LOS BRAWLERS</p>
-          <h2 id="gridTitle">Cargando brawlers...</h2>
-        </div>
-        <p id="statusText" class="muted"></p>
-      </section>
-
-      <section id="grid" class="grid"></section>
-    </section>
-
-    <section id="detailView" class="view">
-      <button id="backButton" class="back-button" data-i18n="detail.back">← Volver</button>
-      <section class="detail-hero card" id="detailHero"></section>
-      <section class="detail-layout detail-layout-build">
-        <div class="detail-main card build-summary-card">
-          <div class="block-head">
-            <p class="eyebrow" data-i18n="detail.buildEyebrow">BEST BUILD</p>
-            <h3 data-i18n="detail.buildTitle">Build recomendado</h3>
-          </div>
-          <div id="recommendedBuild" class="recommended-build"></div>
-        </div>
-      </section>
-
-      <section class="detail-layout">
-        <div class="detail-main card">
-          <div class="block-head">
-            <p class="eyebrow" data-i18n="detail.gadgetsEyebrow">GADGETS</p>
-            <h3 data-i18n="detail.gadgetsTitle">Los 2 gadgets</h3>
-          </div>
-          <div id="gadgetsGrid" class="ability-grid"></div>
-        </div>
-
-        <div class="detail-main card">
-          <div class="block-head">
-            <p class="eyebrow" data-i18n="detail.starEyebrow">HABILIDADES ESTELARES</p>
-            <h3 data-i18n="detail.starTitle">Las 2 estelares</h3>
-          </div>
-          <div id="starPowersGrid" class="ability-grid"></div>
-        </div>
-      </section>
-    </section>
-  </main>
-
-  <template id="brawlerCardTemplate">
-    <article class="brawler-card card">
-      <div class="brawler-top">
-        <div class="portrait-wrap">
-          <img class="portrait" alt="" loading="lazy" />
-        </div>
-        <div class="brawler-meta">
-          <span class="rarity-pill"></span>
-          <h3></h3>
-          <p class="class-line"></p>
-        </div>
-      </div>
-      <div class="brawler-footer">
-        <span class="ability-count"></span>
-        <span class="open-link"></span>
-      </div>
-    </article>
-  </template>
-
-  <template id="abilityCardTemplate">
-    <article class="ability-card">
-      <span class="best-badge" hidden>BEST</span>
-      <div class="ability-icon-wrap">
-        <img class="ability-icon" alt="" loading="lazy" />
-      </div>
-      <div>
-        <p class="ability-type"></p>
-        <h4 class="ability-name"></h4>
-        <p class="ability-description"></p>
-      </div>
-    </article>
-  </template>
-
-  <script src="script.js"></script>
-</body>
-</html>
+</body></html>
