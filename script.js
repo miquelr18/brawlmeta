@@ -63,7 +63,7 @@ const I18N = {
       ctaAll: 'Ver todos los brawlers',
       ctaAbout: 'Ver tier list'
     },
-    stats: { mode: 'Modo', entries: 'Fichas' },
+    stats: { mode: 'Modo', tier: 'Tier list', updated: 'Actualizado' },
     controls: {
       searchLabel: 'Buscar brawler',
       searchPlaceholder: 'Ej: Spike, Trunk, Janet...',
@@ -71,6 +71,10 @@ const I18N = {
       allRarities: 'Todas'
     },
     sections: { allEyebrow: 'TODOS LOS BRAWLERS' },
+    seo: {
+      title: 'Mejores builds de Brawl Stars',
+      copy: 'Brawl Meta te ayuda a encontrar el mejor gadget, la mejor estelar y los mejores refuerzos para cada brawler. Abre cada perfil, compara las dos opciones y usa la tier list para ver qué picks son más fuertes en el meta actual.'
+    },
     detail: {
       back: '← Volver',
       gadgetsEyebrow: 'GADGETS',
@@ -118,7 +122,7 @@ const I18N = {
       gearReload: 'Recarga',
       buildReasonBest: 'Recomendado como opción principal',
       buildReasonAlt: 'Alternativa útil según mapa o modo',
-      allLabel: 'Abilities'
+      allLabel: 'Habilidades'
     }
   },
   en: {
@@ -129,7 +133,7 @@ const I18N = {
       ctaAll: 'See all brawlers',
       ctaAbout: 'View tier list'
     },
-    stats: { mode: 'Mode', entries: 'Profiles' },
+    stats: { mode: 'Mode', tier: 'Tier list', updated: 'Updated' },
     controls: {
       searchLabel: 'Search brawler',
       searchPlaceholder: 'Ex: Spike, Trunk, Janet...',
@@ -137,6 +141,10 @@ const I18N = {
       allRarities: 'All'
     },
     sections: { allEyebrow: 'ALL BRAWLERS' },
+    seo: {
+      title: 'Best Brawl Stars Builds',
+      copy: 'Brawl Meta helps you find the best gadget, star power and gears for each brawler. Open each profile, compare both options and use the tier list to see which picks are strongest in the current meta.'
+    },
     detail: {
       back: '← Back',
       gadgetsEyebrow: 'GADGETS',
@@ -184,7 +192,7 @@ const I18N = {
       gearReload: 'Reload',
       buildReasonBest: 'Recommended main option',
       buildReasonAlt: 'Useful alternative depending on map or mode',
-      allLabel: 'Abilities'
+      allLabel: 'Habilidades'
     }
   }
 };
@@ -297,7 +305,7 @@ const state = {
   filtered: [],
   loaded: false,
   current: null,
-  lang: 'es'
+  lang: localStorage.getItem('brawlmeta_lang') || 'es'
 };
 
 const els = {
@@ -316,7 +324,8 @@ const els = {
   cardTemplate: document.getElementById('brawlerCardTemplate'),
   abilityTemplate: document.getElementById('abilityCardTemplate'),
   langButtons: [...document.querySelectorAll('.lang-btn')],
-  heroAbilitiesText: document.getElementById('heroAbilitiesText'),
+  heroTierText: document.getElementById('heroTierText'),
+  heroUpdatedText: document.getElementById('heroUpdatedText'),
   recommendedBuild: document.getElementById('recommendedBuild')
 };
 
@@ -336,8 +345,11 @@ function applyStaticTranslations() {
 
   els.searchInput.placeholder = t('controls.searchPlaceholder');
   els.backButton.textContent = t('detail.back');
-  els.heroAbilitiesText.textContent = t('ui.abilitiesSummary');
-  document.title = 'Brawl Meta';
+  if (els.heroTierText) els.heroTierText.textContent = state.lang === 'es' ? 'Top meta + S/A/B/C/D' : 'Top meta + S/A/B/C/D';
+  if (els.heroUpdatedText) els.heroUpdatedText.textContent = state.lang === 'es' ? 'Diario' : 'Daily';
+  document.title = state.lang === 'es'
+    ? 'Brawl Meta - Mejores builds, gadgets, estelares y tier list'
+    : 'Brawl Meta - Best builds, gadgets, star powers and tier list';
 
   const allOption = els.raritySelect.querySelector('option[value="all"]');
   if (allOption) allOption.textContent = t('controls.allRarities');
@@ -503,7 +515,6 @@ function renderGrid() {
   els.statusText.textContent = state.filtered.length === state.all.length
     ? t('ui.allLoaded')
     : t('ui.filteredOf', { total: state.all.length });
-  els.heroCount.textContent = t('ui.countBrawlers', { count: state.all.length });
 
   for (const brawler of state.filtered) {
     const node = els.cardTemplate.content.firstElementChild.cloneNode(true);
@@ -630,7 +641,7 @@ function renderRecommendedBuild(build) {
     const card = document.createElement('article');
     card.className = 'build-pick is-best';
     card.innerHTML = `
-      <span class="pick-badge">BEST</span>
+      <span class="pick-badge">${escapeHtml(state.lang === 'es' ? 'BEST' : 'BEST')}</span>
       <div class="ability-icon-wrap">
         <img class="ability-icon" alt="${escapeHtml(entry.ability.name)}" src="${escapeHtml(entry.ability.image)}">
       </div>
@@ -665,8 +676,8 @@ function renderRecommendedBuild(build) {
       <img class="ability-icon" alt="Gears" src="${escapeHtml(GEAR_META[build.gears[0]]?.icon || '')}">
     </div>
     <div>
-      <p class="build-pick-title">GEARS</p>
-      <h4 class="build-pick-name">2 gears recomendados</h4>
+      <p class="build-pick-title">${escapeHtml(state.lang === 'es' ? 'REFUERZOS' : 'GEARS')}</p>
+      <h4 class="build-pick-name">${escapeHtml(state.lang === 'es' ? '2 refuerzos recomendados' : '2 recommended gears')}</h4>
       <div class="gears-row">${gearRows}</div>
     </div>
   `;
@@ -843,6 +854,7 @@ function route() {
 
 function setLanguage(lang) {
   state.lang = lang;
+  localStorage.setItem('brawlmeta_lang', lang);
   applyStaticTranslations();
   if (state.loaded) {
     renderFilters();

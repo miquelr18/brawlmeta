@@ -3,7 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brawl Meta · Tier List</title>
+  <title>Brawl Meta Tier List - Current Brawl Stars Meta Rankings</title>
+  <meta name="description" content="See the current Brawl Stars tier list with top meta picks, community rankings and brawler images. Fast overview of the strongest brawlers right now." />
+  <meta name="keywords" content="brawl stars tier list, current brawl stars meta, best brawlers brawl stars" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href="https://brawlmeta.vercel.app/tier.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Brawl Meta Tier List - Current Brawl Stars Meta Rankings" />
+  <meta property="og:description" content="Check the current Brawl Stars tier list with top meta picks and community rankings." />
+  <meta property="og:url" content="https://brawlmeta.vercel.app/tier.html" />
+  <meta property="og:site_name" content="Brawl Meta" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Brawl Meta Tier List" />
+  <meta name="twitter:description" content="Current Brawl Stars meta rankings and top brawlers." />
+  <meta name="theme-color" content="#0f1117" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -49,6 +62,11 @@
           <strong>Apr 2026</strong>
         </div>
       </div>
+    </section>
+
+    <section class="card seo-copy-card">
+      <h2 data-i18n="tier.seoTitle">Current Brawl Stars Tier List</h2>
+      <p class="muted" data-i18n="tier.seoCopy">Use this page to check the strongest brawlers in the current meta. The top table gives a quick snapshot, while the tier rows help you compare picks at a glance.</p>
     </section>
 
     <section class="section-head">
@@ -110,6 +128,8 @@ const I18N = {
       communityEyebrow: 'TIER LIST COMUNIDAD',
       communityTitle: 'Tier list separada',
       communityNote: 'Orden S-A-B-C-D según los votos más recientes de la comunidad.',
+      seoTitle: 'Tier list actual de Brawl Stars',
+      seoCopy: 'Usa esta página para revisar los brawlers más fuertes del meta actual. La tabla superior te da una referencia rápida y las filas por tier te permiten comparar picks de un vistazo.',
       loading: 'Cargando datos...',
       loadError: 'No se pudieron cargar algunas imágenes en directo, pero la tier list sigue disponible.',
       openProfile: 'Abrir ficha'
@@ -136,6 +156,8 @@ const I18N = {
       communityEyebrow: 'COMMUNITY TIER LIST',
       communityTitle: 'Separate tier list',
       communityNote: 'S-A-B-C-D order based on the latest community votes.',
+      seoTitle: 'Current Brawl Stars Tier List',
+      seoCopy: 'Use this page to review the strongest brawlers in the current meta. The top table gives you a quick reference and the tier rows help you compare picks at a glance.',
       loading: 'Loading data...',
       loadError: 'Some live images could not be loaded, but the tier list is still available.',
       openProfile: 'Open profile'
@@ -234,7 +256,7 @@ function applyText() {
     if (text) el.textContent = text;
   });
   document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === state.lang));
-  document.title = state.lang === 'es' ? 'Brawl Meta · Tier List' : 'Brawl Meta · Tier List';
+  document.title = state.lang === 'es' ? 'Brawl Meta · Tier list' : 'Brawl Meta · Tier List';
 }
 
 async function fetchBrawlers() {
@@ -341,7 +363,7 @@ function renderTiers() {
       <section class="card tier-block tier-${tier.toLowerCase()}">
         <div class="tier-badge">${tier}</div>
         <div class="tier-content">
-          <h3>${tier} Tier</h3>
+          <h3>${state.lang === 'es' ? `Tier ${tier}` : `${tier} Tier`}</h3>
           <div class="tier-card-wrap">${cards}</div>
         </div>
       </section>`;
