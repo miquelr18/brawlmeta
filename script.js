@@ -2,7 +2,7 @@ const API_URL = 'https://api.brawlapi.com/v1/brawlers';
 
 const I18N = {
   es: {
-    navHome:'Inicio', navAll:'Todos los brawlers', navBuilds:'Best builds', navTier:'Tier list', navTop10:'Top 10',
+    navHome:'Inicio', navAll:'Todos los brawlers', navBuilds:'Best builds', navTier:'Tier list', navTop10:'Top 10', navGuides:'Guías SEO',
     pagesEyebrow:'Páginas', pagesTitle:'Explora la tier list y el Top 10 de win rates', homeBuildCopy:'Mejor build con gadget, habilidad estelar y gears recomendados.', viewBuild:'Ver build',
     heroEyebrow:'WEB REAL · SEO + TIER LIST', heroTitle:'Brawl Meta',
     heroText:'Consulta todos los brawlers y revisa su mejor build con gadget, habilidad estelar y gears recomendados.',
@@ -20,7 +20,7 @@ const I18N = {
     fallbackBuild:'Build por rol', liveBuild:'Build live'
   },
   en: {
-    navHome:'Home', navAll:'All brawlers', navBuilds:'Best builds', navTier:'Tier list', navTop10:'Top 10',
+    navHome:'Home', navAll:'All brawlers', navBuilds:'Best builds', navTier:'Tier list', navTop10:'Top 10', navGuides:'SEO Guides',
     pagesEyebrow:'Pages', pagesTitle:'Explore the tier list and Top 10 win rates', homeBuildCopy:'Best build with recommended gadget, star power and gears.', viewBuild:'View build',
     heroEyebrow:'REAL WEBSITE · SEO + TIER LIST', heroTitle:'Brawl Meta',
     heroText:'Browse all brawlers and review the best build for each one with gadget, star power and recommended gears.',
@@ -151,7 +151,7 @@ function avatarMarkup(name, img){ return img ? `<img src="${img}" alt="${name}" 
 function metricMarkup(name){ const s = TOP10_STATS[name]; if(!s) return ''; return `<div class="top-stats"><span>${t('adjustedWR')}: <strong>${s.wr}</strong></span><span>${t('pickRate')}: <strong>${s.pick}</strong></span></div>`; }
 function buildBrawlerCard(b, api, showStats=false){
   const img = getImage(api, b.name);
-  return `<a class="card" href="${window.location.pathname.includes('/brawlers/') ? '../' : ''}brawlers/${b.slug}.html">
+  return `<a class="card" href="${brawlerHref(b.slug)}">
     <div class="avatar">${avatarMarkup(b.name, img)}</div>
     <div class="meta">
       <div class="badge ${rarityClass(b.rarity)}">${b.rarity}</div>
@@ -171,6 +171,7 @@ function renderGears(gears){
   if(!gears?.length) gears = [localGear('damage'), localGear('shield')];
   return gears.map(g => `<div class="gear-chip"><img src="${g.imageUrl || `${assetPrefix()}images/gears/damage.png`}" alt="${g.name}" onerror="this.src='${assetPrefix()}images/gears/damage.png'"><span>${g.name}</span></div>`).join('');
 }
+function brawlerHref(slug){ return `${assetPrefix()}brawlers/${slug}.html`; }
 function buildHomeRow(b, api){
   const img = getImage(api, b.name);
   const build = getBestBuild(api, b);
@@ -184,7 +185,7 @@ function buildHomeRow(b, api){
     ${buildMiniAbility(build.gadget, t('bestGadget'))}
     ${buildMiniAbility(build.star, t('bestStar'))}
     <div class="mini-build gears-box"><div class="mini-kicker">${t('recommendedGears')}</div><div class="mini-gears">${renderGears(build.gears)}</div></div>
-    <div class="build-link"><a class="btn primary" href="brawlers/${b.slug}.html">${t('viewBuild')}</a></div>
+    <div class="build-link"><a class="btn primary" href="${brawlerHref(b.slug)}">${t('viewBuild')}</a></div>
   </article>`;
 }
 function fillRaritySelect(select){ if(!select) return; const values = ['All', ...new Set(BRAWLERS.map(b=>b.rarity))]; select.innerHTML = values.map(v => `<option value="${v}">${v === 'All' ? t('allRarities') : v}</option>`).join(''); }
@@ -210,7 +211,7 @@ async function initHome(){
 function buildTierMini(name, apiList){
   const b = BRAWLERS.find(x => x.name === name) || {name, rarity:'Mythic', slug:normalize(name)};
   const api = findApiBrawler(name, apiList);
-  return `<a class="tier-mini" href="brawlers/${b.slug}.html">
+  return `<a class="tier-mini" href="${brawlerHref(b.slug)}">
     <div class="avatar">${avatarMarkup(name, getImage(api, name))}</div>
     <div><div class="badge ${rarityClass(b.rarity)}">${b.rarity}</div><h4>${name}</h4></div>
   </a>`;
@@ -277,10 +278,148 @@ async function initBrawlerPage(){
     </section>`;
 }
 
+
+
+const GUIDE_CONTENT = {
+  'best-brawlers-beginners': {
+    es: {
+      eyebrow: 'GUÍA PARA PRINCIPIANTES',
+      title: 'Mejores brawlers para principiantes',
+      intro: 'Esta guía reúne brawlers fáciles de usar, con builds claras y mucho valor para jugadores nuevos que quieren subir copas sin complicarse.',
+      sections: [
+        {title:'Top picks para empezar', text:'Shelly, Nita, Jessie, Poco y Colt son opciones seguras para aprender posicionamiento, presión y control de mapa. Sus builds suelen ser directas y fáciles de entender.', links:['shelly','nita','jessie','poco','colt']},
+        {title:'Qué buscar en una build de principiante', text:'Prioriza gadgets simples, habilidades estelares de valor constante y gears como daño o escudo. Evita builds demasiado situacionales hasta que conozcas mejor cada modo.', links:['bull','rosa','8-bit','pam']},
+        {title:'Siguiente paso en la meta', text:'Cuando domines los básicos, puedes pasar a picks con más impacto en el meta actual como Spike, Leon o Sandy y compararlos con la tier list y el Top 10.', links:['spike','leon','sandy']}
+      ]
+    },
+    en: {
+      eyebrow: 'BEGINNER GUIDE',
+      title: 'Best brawlers for beginners',
+      intro: 'This guide focuses on easy-to-use brawlers with clear builds and strong value for new players who want to push trophies without overcomplicating the game.',
+      sections: [
+        {title:'Top picks to start with', text:'Shelly, Nita, Jessie, Poco and Colt are safe options to learn positioning, pressure and map control. Their builds are usually direct and easy to understand.', links:['shelly','nita','jessie','poco','colt']},
+        {title:'What to look for in a beginner build', text:'Prioritize simple gadgets, star powers with steady value and gears like damage or shield. Avoid overly situational builds until you know each mode better.', links:['bull','rosa','8-bit','pam']},
+        {title:'Next step in the meta', text:'Once you master the basics, move into higher-impact meta picks like Spike, Leon or Sandy and compare them with the tier list and Top 10 pages.', links:['spike','leon','sandy']}
+      ]
+    }
+  },
+  'solo-showdown-tier-list': {
+    es: {
+      eyebrow: 'SOLO SHOWDOWN',
+      title: 'Mejores brawlers para Solo Showdown',
+      intro: 'Página pensada para búsquedas de Solo Showdown, con picks fuertes para sobrevivir, hacer presión y cerrar partidas con consistencia.',
+      sections: [
+        {title:'Brawlers fuertes para sobrevivir', text:'Leon, Crow, Cordelius y Kit destacan por movilidad, presión y capacidad de castigar errores. En mapas abiertos o mixtos suelen ofrecer mucho valor.', links:['leon','crow','cordelius','kit']},
+        {title:'Opciones sólidas y agresivas', text:'Bull, Shelly, Fang y Buzz pueden castigar rivales a corta distancia y aprovechar arbustos o zonas estrechas para dominar la partida.', links:['bull','shelly','fang','buzz']},
+        {title:'Cómo usar esta guía', text:'Abre la build de Leon, Crow, Cordelius o Kit para revisar gadgets y gears recomendados. Después compárala con la tier list general para ver si también dominan fuera de Solo Showdown.', links:['leon','crow','cordelius','kit']}
+      ]
+    },
+    en: {
+      eyebrow: 'SOLO SHOWDOWN',
+      title: 'Best brawlers for Solo Showdown',
+      intro: 'This page targets Solo Showdown searches with strong picks for survival, pressure and consistent end-game control.',
+      sections: [
+        {title:'Strong survival picks', text:'Leon, Crow, Cordelius and Kit stand out for mobility, pressure and punishing power. On open or mixed maps they usually provide a lot of value.', links:['leon','crow','cordelius','kit']},
+        {title:'Reliable aggressive options', text:'Bull, Shelly, Fang and Buzz can punish close-range opponents and use bushes or tight areas to control the match.', links:['bull','shelly','fang','buzz']},
+        {title:'How to use this guide', text:'Open the Leon, Crow, Cordelius or Kit build page to review the recommended gadgets and gears. Then compare them with the full tier list to see whether they also dominate outside Solo Showdown.', links:['leon','crow','cordelius','kit']}
+      ]
+    }
+  },
+  'gem-grab-tier-list': {
+    es: {
+      eyebrow: 'GEM GRAB',
+      title: 'Mejores brawlers para Gem Grab',
+      intro: 'Esta guía SEO se centra en picks con control de línea, capacidad de aguantar gemas y herramientas para remontar en Gem Grab.',
+      sections: [
+        {title:'Control y presión', text:'Gene, Sandy, Tara y Jessie ofrecen herramientas muy útiles para controlar espacios, proteger portadores y generar presión constante.', links:['gene','sandy','tara','jessie']},
+        {title:'Portadores y soporte', text:'Poco, Pam y Gus encajan bien cuando buscas sustain, curación o soporte estable para partidas largas.', links:['poco','pam','gus']},
+        {title:'Comparar builds y meta', text:'Usa esta página para revisar builds de Gene, Sandy, Tara, Jessie, Poco, Pam o Gus y después compárala con la tier list general para ver cómo cambian los picks entre modos.', links:['gene','sandy','tara','jessie','poco','pam','gus']}
+      ]
+    },
+    en: {
+      eyebrow: 'GEM GRAB',
+      title: 'Best brawlers for Gem Grab',
+      intro: 'This SEO guide focuses on picks with lane control, gem-carry value and comeback tools for Gem Grab.',
+      sections: [
+        {title:'Control and pressure', text:'Gene, Sandy, Tara and Jessie offer excellent tools to control space, protect carriers and generate constant pressure.', links:['gene','sandy','tara','jessie']},
+        {title:'Carriers and support', text:'Poco, Pam and Gus fit well when you want sustain, healing or reliable support in longer matches.', links:['poco','pam','gus']},
+        {title:'Compare builds and meta', text:'Use this page to review builds for Gene, Sandy, Tara, Jessie, Poco, Pam or Gus, then compare them with the main tier list to see how the strongest picks change across modes.', links:['gene','sandy','tara','jessie','poco','pam','gus']}
+      ]
+    }
+  },
+  'brawler-directory': {
+    es: {
+      eyebrow: 'DIRECTORIO',
+      title: 'Directorio de brawlers y builds',
+      intro: 'Este directorio agrupa enlaces internos hacia páginas individuales de brawlers para mejorar navegación, SEO y cobertura de búsquedas long-tail.',
+      sections: [
+        {title:'Brawlers populares', text:'Accede rápido a páginas con mucho potencial de búsqueda como Shelly, Spike, Leon, Crow, Surge y Sandy.', links:['shelly','spike','leon','crow','surge','sandy']},
+        {title:'Picks para ladder y meta', text:'Aquí también puedes revisar brawlers que suelen destacar en ladder o en discusiones sobre meta actual.', links:['fang','gene','tara','meg','chester','kit']},
+        {title:'Explora más páginas', text:'Combina este directorio con la home de best builds, la tier list y el Top 10 para dar a Google una estructura más fuerte y al usuario una navegación más clara.', links:['colt','jessie','nita','bull','cordelius','buzz']}
+      ]
+    },
+    en: {
+      eyebrow: 'DIRECTORY',
+      title: 'Brawler directory and builds',
+      intro: 'This directory groups internal links to individual brawler pages to improve navigation, SEO and long-tail search coverage.',
+      sections: [
+        {title:'Popular brawlers', text:'Quick access to pages with strong search potential such as Shelly, Spike, Leon, Crow, Surge and Sandy.', links:['shelly','spike','leon','crow','surge','sandy']},
+        {title:'Ladder and meta picks', text:'You can also review brawlers that usually stand out in ladder or in current meta discussions.', links:['fang','gene','tara','meg','chester','kit']},
+        {title:'Explore more pages', text:'Combine this directory with the best builds home page, the tier list and the Top 10 page to give Google a stronger structure and users a clearer path.', links:['colt','jessie','nita','bull','cordelius','buzz']}
+      ]
+    }
+  }
+};
+
+function guideLinksMarkup(slugs){
+  return (slugs || []).map(slug => {
+    const b = BRAWLERS.find(x => x.slug === slug);
+    if(!b) return '';
+    return `<a class="btn" href="${brawlerHref(slug)}">${b.name}</a>`;
+  }).join('');
+}
+
+function initGuidePage(){
+  const guide = document.body.dataset.guide;
+  const lang = currentLang();
+  const pack = GUIDE_CONTENT[guide]?.[lang] || GUIDE_CONTENT[guide]?.es;
+  const root = document.getElementById('guide-root');
+  if(!pack || !root){ return; }
+  const niceTitle = pack.title;
+  const meta = document.querySelector('meta[name="description"]');
+  if(meta) meta.setAttribute('content', pack.intro);
+  document.title = `${niceTitle} | Brawl Meta`;
+  root.innerHTML = `
+    <section class="hero"><div class="panel"><div class="eyebrow">${pack.eyebrow}</div><h1>${pack.title}</h1><p>${pack.intro}</p><div class="actions"><a href="index.html#all" class="btn primary">${t('navBuilds')}</a><a href="tier.html" class="btn">${t('navTier')}</a><a href="top10.html" class="btn">${t('navTop10')}</a></div></div></section>
+    ${pack.sections.map(section => `<section class="section"><div class="panel"><div class="section-head guide-head"><div><div class="kicker">${pack.eyebrow}</div><h2>${section.title}</h2><div class="title-divider"></div></div></div><p class="seo-copy">${section.text}</p>${section.links?.length ? `<div class="actions">${guideLinksMarkup(section.links)}</div>` : ''}</div></section>`).join('')}
+    <section class="section"><div class="panel"><div class="section-head guide-head"><div><div class="kicker">${lang === 'es' ? 'Navegación' : 'Navigation'}</div><h2>${lang === 'es' ? 'Sigue navegando' : 'Keep exploring'}</h2><div class="title-divider"></div></div></div><p class="seo-copy">${lang === 'es' ? 'Desde aquí puedes volver a Best Builds, abrir la tier list general o revisar el Top 10 de win rates.' : 'From here you can go back to Best Builds, open the full tier list or review the Top 10 win rate page.'}</p><div class="actions"><a href="index.html" class="btn primary">Best Builds</a><a href="tier.html" class="btn">${t('navTier')}</a><a href="top10.html" class="btn">${t('navTop10')}</a></div></div></section>`;
+}
+
+function updatePageSeo(){
+  const page = document.body.dataset.page;
+  const lang = currentLang();
+  const isEs = lang === 'es';
+  const meta = document.querySelector('meta[name="description"]');
+  if(page === 'home'){
+    document.title = isEs ? 'Brawl Stars Best Builds 2026 - Todos los brawlers, gadgets y gears' : 'Brawl Stars Best Builds 2026 - All Brawlers, Gadgets and Gears';
+    if(meta) meta.setAttribute('content', isEs ? 'Brawl Meta muestra la mejor build de Brawl Stars para cada brawler con gadget, habilidad estelar y gears recomendados. Explora todos los brawlers, la tier list y el Top 10 de win rates.' : 'Brawl Meta shows the best Brawl Stars build for every brawler with recommended gadget, star power and gears. Explore all brawlers, the tier list and the Top 10 win rates.');
+  }
+  if(page === 'tier'){
+    document.title = isEs ? 'Brawl Stars Tier List 2026 - S Tier, A Tier, B Tier, C Tier y D Tier' : 'Brawl Stars Tier List 2026 - S Tier, A Tier, B Tier, C Tier and D Tier';
+    if(meta) meta.setAttribute('content', isEs ? 'Tier list actualizada de Brawl Stars con los brawlers S Tier, A Tier, B Tier, C Tier y D Tier. Página separada de builds y del Top 10 de win rates.' : 'Updated Brawl Stars tier list with S Tier, A Tier, B Tier, C Tier and D Tier brawlers. Separate page focused on tiers, not builds or Top 10 win rates.');
+  }
+  if(page === 'top10'){
+    document.title = isEs ? 'Top 10 Brawl Stars Win Rates 2026 - Mejores porcentajes de victoria' : 'Top 10 Brawl Stars Win Rates 2026 - Highest Win Rate Brawlers';
+    if(meta) meta.setAttribute('content', isEs ? 'Top 10 de brawlers con mejor win rate en Brawl Stars con porcentajes. Página separada de la tier list y de los best builds.' : 'Top 10 highest win rate brawlers in Brawl Stars with percentages. Separate page from the tier list and best builds.');
+  }
+}
+
 window.addEventListener('DOMContentLoaded', async ()=>{
   initLang();
+  updatePageSeo();
   if(document.body.dataset.page === 'home') await initHome();
   if(document.body.dataset.page === 'tier') await initTier();
   if(document.body.dataset.page === 'top10') await initTop10();
   if(document.body.dataset.page === 'brawler') await initBrawlerPage();
+  if(document.body.dataset.page === 'guide') initGuidePage();
 });

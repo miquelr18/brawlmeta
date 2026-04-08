@@ -145,3 +145,15 @@ option{color:#111}
 .build-link .btn{width:100%}
 @media (max-width: 1100px){.build-row{grid-template-columns:88px 1fr 1fr;}.build-link{grid-column:1/-1;text-align:left}.mini-build.gears-box{grid-column:2/4}}
 @media (max-width: 760px){.build-row{grid-template-columns:1fr;}.build-row .avatar{width:84px;height:84px}.build-main h3{font-size:26px}}
+
+.nav .links{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+.links a{position:relative;padding-right:16px;margin-right:2px}
+.links a:not(:last-of-type)::after{content:"";position:absolute;right:0;top:50%;transform:translateY(-50%);width:1px;height:18px;background:rgba(255,255,255,.16)}
+.title-divider{height:1px;width:100%;max-width:680px;background:rgba(255,255,255,.10);margin-top:16px}
+.guide-head{margin-bottom:12px}
+.actions:empty{display:none}
+@media (max-width: 960px){
+  .links a{padding-right:12px}
+  .links a:not(:last-of-type)::after{height:14px}
+}
